@@ -1,4 +1,4 @@
-# a simple to-do list application that can be run in the Python Terminal. This program allows you to add tasks, view your to-do list, mark tasks as completed, and remove tasks:
+# a simple to-do list application that can be run in the Python Terminal. This program allows you to add tasks, view your to-do list, mark tasks as completed, and remove tasks.
 
 class Todo_List:
     def __init__(self):
