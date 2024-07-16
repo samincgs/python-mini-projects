@@ -1,33 +1,36 @@
-question_answer_dict = {
-    "What does CPU stand for? " : "central processing unit", "What does GUI stand for? ": "graphical user interface",
-    "Who is the co-founder of Microsoft Corporation?" : "bill gates",
-    "Which programming language is often used for web development and is known for its client-side scripting capabilities?" : "javascript",
-    "What does HTML stand for in the context of web development?" : "hypertext transfer market language",
-    " Which computer operating system is developed by Apple Inc.?" : "ios",
-    "What does URL stand for in the context of web addresses?" : "universal resource locator"
-    
-    }
+print("Welcome to my computer quiz!")
 
-counter = 0
+playing = input("Do you want to play? ").lower()
 
-print("This is a quiz about computers!\n")
-
-playing = input("Do you want to play the game? (Please answer YES OR NO)\n")
-
-if playing.upper() != "YES":
+if playing != "yes":
     quit()
-
-print("Okay! Let's start right away!\n")
-
-for question, answer in question_answer_dict.items():
-    print(question)
     
-    guess = input().lower()
+print("Sounds good! Let's start the game :) \n")
+
+answer = input("What does CPU stand for? ").lower()
+
+if answer == "central processing unit":
+    print("Correct!")
+else:
+    print("Incorrect!")
+
+answer = input("What does GPU stand for? ").lower()
+
+if answer == "graphics processing unit":
+    print("Correct!")
+else:
+    print("Incorrect!")
     
-    if guess == answer:
-        print("Correct Answer!\n")
-        counter += 1
-    else:
-        print("Wrong Answer:(\n")
-        
-print(f"\nYour Score is: {counter} / {len(question_answer_dict)}\n\nThank you for playing my quiz game:)")
+answer = input("What does RAM stand for? ").lower()
+
+if answer == "random access memory":
+    print("Correct!")
+else:
+    print("Incorrect!")
+    
+answer = input("What does PSU stand for? ").lower()
+
+if answer == "power supply unit":
+    print("Correct!")
+else:
+    print("Incorrect!")
