@@ -1,79 +1,113 @@
-from sys import exit
-
-class IceCreamTruck:
+class IceCreamShop:
     def __init__(self):
-        self.ice_cream_list = {
-            'vanilla' : 4,
-            'chocolate' : 3.5,
-            'mint' : 5,
-            'cookie dough' : 5,
-            'pistachio' : 6
+        self.menu = {
+            "Vanilla": 1.50,
+            "Chocolate" : 1.75,
+            "Strawberry": 1.60,
+            "Mint": 1.70,
+            "Cookie Dough": 2.0
         }
         
         self.order = {}
-        self.display_menu()
-        
         
     def display_menu(self):
-        print('Welcome to the Ice Cream Truck!\nPlease select an option below (Type the number please)\n')
-        print('1. Order some Ice cream')
-        print('2. Check your total')
-        print('3. Remove an ice cream from an order')
-        print('4. Exit\n')
-        try:
-            self.choice = int(input('Your choice: '))
-            self.choose_choice()
-        except:
-            print('\nPlease input a proper number!')
-            self.display_menu()
-    
-    def display_ice_cream(self):
-        while True:
-            print('\nHere are our options for today! Please type the flavor you would like to order\n(If you are done type exit)\n')
-            for flavor, price in self.ice_cream_list.items():
-                print(f'{flavor.capitalize()}: {price}')
-
-            self.ice_cream_choice = input('\nYour choice: ').lower()
-            if self.ice_cream_choice in self.ice_cream_list:
-                try:
-                    self.ice_cream_amount = int(input('\nHow many would you like to order?: '))
-                except:
-                  print('\nPlease input a proper number!')  
-                  self.ice_cream_amount = int(input('\nHow many would you like to order?: '))
-                  
-                self.order[self.ice_cream_choice] = self.ice_cream_amount * self.ice_cream_list[self.ice_cream_choice]
-                  
-            elif self.ice_cream_choice == 'exit':
-                self.display_menu()
-                break
-            else:
-                print('Not a valid choice try again')
-                self.ice_cream_choice = input('\nYour choice: ')
+        print("\nIce Cream Menu: ")
+        
+        for flavor, price in self.menu.items():
+            print(f'{flavor}: {price: .2f}')
             
+    def take_order(self):
+        while True:
+            
+            self.display_menu()
+            
+            flavor = input('\nEnter the flavour you want to order (or type "done" to finish)').title()
+            
+            if flavor.lower() == 'done':
+                break;
+            if flavor in self.menu:
+                quantity = int(input(f'How many scoops of {flavor} do you want?'))
+                
+                if flavor in self.order:
+                    self.order[flavor] += quantity
+                else:
+                    self.order[flavor] = quantity
+                    
+            else:
+                print('Sorry we do not have that flavor. Please choose a different flavor')
+                
+    def remove_order(self):
+        while True:
+            
+            print('\nYour current order: ')
+            
+            for flavor, quantity in self.order.items():
+                print(f'{flavor} - {quantity} scoops')
+                
+                
+            flavor = input('\nEnter the flavor you want to remove (or "done" to finish):').title()
+            
+            if flavor.lower() == 'done':
+                break
+            
+            if flavor in self.order:
+                quantity = int(input(f'How many scoops of {flavor} would you like to remove?'))
+                
+                if quantity >= self.order[flavor]:
+                    del self.order[flavor]
+                
+                else:
+                    
+                    self.order[flavor] -= quantity
+                    
+            else:
+                print("That flavor is not in your order. Please choose from an existing ice cream order.")
+                
     def calculate_total(self):
         total = 0
-        for price in self.order.values():
-            total += price
-    
-        print(f'Your total is: ${total}')
-    
-    def remove_ice_cream(self):
-        print('REMOVE')
-    
-    def choose_choice(self):
-        match self.choice:
-            case 1:
-                self.display_ice_cream()  
-            case 2:
-                self.calculate_total()
-            case 3:
-                self.remove_ice_cream()
-            case 4:
-                exit()
-            case _:
-                print('Choice is invalid! Please try again')
-                self.display_menu()
-    
         
+        print("\nYour order: ")
+        
+        for flavor, quantity in self.order.items():
+            price = self.menu[flavor] * quantity
+            
+            total += price
+            
+            print(f'{flavor} - {quantity} scoops: ${price: .2f}')
+        
+        print(f'\nTotal Cost: ${total: .2f}')
+        
+def main():
+    
+    shop = IceCreamShop()
+    
+    while True:
+        
+        print("\nWelcome to the Ice Cream Shop")
+        print("1. View Menu")
+        print("2. Place Order")
+        print("3. Remove Item from order")
+        print("4. View Total")
+        print("5. Exit")
+        
+        choice = input("Enter your choice: ")
+        
+        if choice == '1':
+            shop.display_menu()
+        elif choice == '2':
+            shop.take_order()
+        elif choice == '3':
+            shop.remove_order()
+        elif choice == '4':
+            shop.calculate_total()
+        elif choice == '5':
+            print("Thank you for visiting the Ice cream shop")
+            break
+        else:
+            print("Invalid choice. Please try again")
+            
 if __name__ == '__main__':
-    IceCreamTruck()
+    main()
+            
+            
+        
